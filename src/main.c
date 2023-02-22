@@ -14,14 +14,15 @@ int main() {
     }
 
     uint32_t no_sources = 0;
-	const NDIlib_source_t* p_sources = NULL;
-    while(1) {
+    const NDIlib_source_t* p_sources = NULL;
+    
+    while (1) {
         if (!NDIlib_find_wait_for_sources(pNDI_find, 1000)) {
             continue;
-        };
+        }
         p_sources = NDIlib_find_get_current_sources(pNDI_find, &no_sources);
         for (uint32_t i = 0; i < no_sources; ++i) {
-            printf("%s", p->ndi_name);
+            printf("%s", (p+i)->ndi_name);
         }
     }
 
