@@ -7,8 +7,8 @@ int main() {
         return 0;
     }
 
-    const NDIlib_find_create_t NDI_find_create_desc;
-    NDIlib_find_instance_t pNDI_find = NDIlib_find_create_v2(&NDIlib_find_create_desc)
+    const NDIlib_find_create_t NDIlib_find_create_desc;
+    NDIlib_find_instance_t pNDI_find = NDIlib_find_create_v2(&NDIlib_find_create_desc);
     if (!pNDI_find) {
         return 0;
     }
@@ -22,7 +22,7 @@ int main() {
         }
         p_sources = NDIlib_find_get_current_sources(pNDI_find, &no_sources);
         for (uint32_t i = 0; i < no_sources; ++i) {
-            printf("%s", (p+i)->ndi_name);
+            printf("%s", (p_sources+i)->p_ndi_name);
         }
     }
 
