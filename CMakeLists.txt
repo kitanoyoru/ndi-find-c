@@ -13,6 +13,7 @@ source_group("" FILES ${SOURCES} ${INCLUDES})
 
 target_include_directories(FindNDISource PRIVATE ${NDI_INCLUDE_DIR})
 target_link_directories(FindNDISource PRIVATE ${NDI_LIBRARY_DIR})
+target_link_libraries(FindNDISource PRIVATE ${NDI_LIBS})
 
 set_target_properties(FindNDISource PROPERTIES SKIP_RPATH TRUE)
 set_target_properties(FindNDISource PROPERTIES BUILD_RPATH_USE_ORIGIN TRUE)
