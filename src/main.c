@@ -22,7 +22,7 @@ int main() {
         }
         p_sources = NDIlib_find_get_current_sources(pNDI_find, &no_sources);
         for (uint32_t i = 0; i < no_sources; ++i) {
-            printf("%s", (p_sources+i)->p_ndi_name);
+            printf("%s", p_sources[i].p_ndi_name);
         }
     }
 
