@@ -1,57 +1,13 @@
 cmake_minimum_required(VERSION 3.16)
 
-project(FindNDISource VERSION 0.1.0)
+project(FindNDISource VERSION 0.1.0 LANGUAGES C)
 
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake/Modules)
 
 find_package(NDI REQUIRED)
 
-file(GLOB INCLUDES ${CMAKE_CURRENT_SOURCE_DIR}/src/*.h)
-file(GLOB SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/src/*.c)
+add_executable(${PROJECT_NAME} src/main.c)
 
-source_group("" FILES ${SOURCES} ${INCLUDES})
-
-target_include_directories(FindNDISource PRIVATE ${NDI_INCLUDE_DIR})
-target_link_directories(FindNDISource PRIVATE ${NDI_LIBRARY_DIR})
-target_link_libraries(FindNDISource PRIVATE ${NDI_LIBS})
-
-set_target_properties(FindNDISource PROPERTIES SKIP_RPATH TRUE)
-set_target_properties(FindNDISource PROPERTIES BUILD_RPATH_USE_ORIGIN TRUE)
-set_target_properties(FindNDISource PROPERTIES SKIP_BUILD_RPATH FALSE)
-set_target_properties(FindNDISource PROPERTIES BUILD_WITH_INSTALL_RPATH TRUE)
-set_target_properties(FindNDISource PROPERTIES INSTALL_RPATH_USE_LINK_PATH FALSE)
-if(APPLE)
-  set_target_properties(FindNDISource PROPERTIES INSTALL_RPATH "@loader_path")
-elseif(UNIX)
-  set_target_properties(FindNDISource PROPERTIES INSTALL_RPATH "$ORIGIN")
-endif()
-
-# install
-install(
-  TARGETS FindNDISource 
-  RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}
-  LIBRARY DESTINATION ${CMAKE_INSTALL_PREFIX}
-)
-if(WIN32)
-  install(
-    FILES
-    "${NDI_DIR}/Bin/${NDI_ARCH}/Processing.NDI.Lib.${NDI_ARCH}.dll"
-    "${NDI_LICENSE_DIR}/Processing.NDI.Lib.Licenses.txt"
-    DESTINATION ${CMAKE_INSTALL_PREFIX}
-  )
-elseif(APPLE)
-  install(
-    FILES
-    "${NDI_LIBRARY_DIR}/libndi.dylib"
-    "${NDI_LICENSE_DIR}/libndi_licenses.txt"
-    DESTINATION ${CMAKE_INSTALL_PREFIX}
-  )
-elseif(UNIX)
-  file(GLOB DLL "${NDI_LIBRARY_DIR}/libndi.so*")
-  install(
-    FILES
-    ${DLL}
-    "${NDI_LICENSE_DIR}/libndi_licenses.txt"
-    DESTINATION ${CMAKE_INSTALL_PREFIX}
-  )
-endif()
+target_include_directories(${PROJECT_NAME} PRIVATE ${NDI_INCLUDE_DIR})
+target_link_directories(${PROJECT_NAME} PRIVATE ${NDI_LIBRARY_DIR})
+target_link_libraries(${PROJECT_NAME} PRIVATE ${NDI_LIBS})
